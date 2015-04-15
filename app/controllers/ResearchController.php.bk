@@ -1,0 +1,88 @@
+<?php
+ 
+class ResearchController extends BaseController
+{
+   public function index()
+	{
+		if(Auth::check()) {
+			
+			$id = Auth::user()->getId();
+			$name = Auth::user()->getFullName();
+				
+		$view = View::make('research.index')->with('id', $id);
+		$view->firstName = Auth::user()->firstname;
+		$view->lastName = Auth::user()->lastname;
+		$view->name = $name;
+		$view->email = Auth::user()->email;
+		$view->username = Auth::user()->username;
+		
+		return $view; 
+		
+		}	else{
+
+			return Redirect::to('clients');
+		}
+	}
+	
+	//controller for research/historical-queries by farzin  
+	/*public function historicalQueries() 
+    {
+    	if(Auth::check()) {
+			
+			$id = Auth::user()->getId();
+			$name = Auth::user()->getFullName();
+				
+		$view = View::make('research.index')->with('id', $id);
+		$view->firstName = Auth::user()->firstname;
+		$view->lastName = Auth::user()->lastname;
+		$view->name = $name;
+		$view->email = Auth::user()->email;
+		$view->username = Auth::user()->username;
+		
+		return $view; 
+		
+		}	else{
+
+			return Redirect::to('clients');
+		}
+    	
+    }*/
+    
+   public function historicalQueries() 
+    {
+        $userId = 23;
+        $jsonData = UsersSite::where('user_id', $userId)->take(100)->get();
+        $jsonDecoded = json_decode($jsonData, true);
+        
+        $sitesArray = [];
+        
+        foreach ($jsonDecoded as $entry)
+        {
+            //Add query and time to a single array
+            $queryAndTime = [
+                "query" => $entry["site_info"],
+                "time" => $entry["created_at"],
+            ];
+            
+            //Add the query time array to the 'dict' with site_url as the key
+            if (isset($sitesArray[$entry["site_url"]])) 
+            {
+                $sitesArray[$entry["site_url"]] = [$queryAndTime];
+            }
+/*              else
+            {
+                $sitesArray[$entry["site_url"]] = array_push($sitesArray[$entry["site_url"]], $queryAndTime);
+            } */
+           
+       } 
+        
+		#return View::make('research.historicalQueries', $sitesArray)->with('sitesArray', $sitesArray);
+        return View::make('research.historicalQueries', $jsonDecoded)->with('jsonDecoded', $jsonDecoded);
+    } 
+    
+    public function trends()
+    {
+        return View::make('research.trends');    
+    }
+ }
+

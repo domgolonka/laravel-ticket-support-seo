@@ -1,0 +1,128 @@
+/*
+=================================================================
+Research
+=================================================================
+*/
+
+.researchForm {
+	padding: 3em;
+	width: 2000;
+	display: table-cell;
+}
+
+.researchNav {
+	background-color: #f2f2f2;
+	position: relative;
+	float: left;
+	z-index: 48;
+	width: 250px;
+	bottom: 0;
+	border-right: 1px solid #d6d7d8;
+	overflow-y: auto;
+	display: none;
+}
+
+.refreshResearch{
+	width: 220px;
+	background-color: #f5f5f5;
+	border: none;
+	margin-right: 5px;
+}
+.refreshResearch:hover{
+	background-color: white;
+	white-space: nowrap;
+	overflow: visible;
+}
+
+.inputUrlSubmit{
+	border-color: white;
+	
+}
+.inputUrlSubmit:hover{
+	background-color: #B3ADB1;
+	
+}
+
+#historicalSearches{
+	
+	
+}
+
+#historicalSearchesTable{
+
+	
+}
+
+#mozFooter{
+	font-size: 0.75em;
+}
+
+.inputUrlBox {
+	width: 350px;
+	
+}
+
+.inputUrlSubmit {
+	
+	}
+
+
+/*  Bootstrap Side Navbar */
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+ #researchNavbar > li{
+		border-bottom-style: solid;
+		border-width: thin;
+		border-bottom-color: white;	
+	}
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar li:hover{
+		background-color: #6EE6DA;  
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+/*  Mozscape API Style */
+body {
+  font-size: 14px;
+  font-family: Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+td, th {
+  text-align: left;
+  vertical-align: middle;
+  padding: 5px;
+}
+
+th p {
+  font-size: .8em;
+  color: #666;
+  font-style: italic;
+  font-weight: normal;
+  margin: 0;
+}
+
+tr:nth-child(2n+1) {
+  background-color: #f5f5f5;
+}

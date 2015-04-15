@@ -1,0 +1,14 @@
+<?php
+ 
+class ResearchController extends Controller
+{
+   public function index()
+	{
+		if (Auth::check())
+                {
+                     $id = Auth::user()->getId();
+                     $name = Auth::user()->getFullName();
+                }
+		return View::make('research.index');
+	}
+}

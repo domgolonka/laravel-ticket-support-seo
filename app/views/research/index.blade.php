@@ -1,0 +1,245 @@
+@extends('clients')
+@section('content') 
+
+<!-- Intro -->
+<!-- <section class="site-section site-section-light site-section-top themed-background-flatie">
+   
+</section> -->
+<!-- END Intro -->
+ <h2>Research</h2>
+<div class="container-fluid" >
+	<div class="researchForm"> 
+<?php
+			if(!isset($_POST['url'])) {
+				echo "
+					<form method='post'>
+						<input type='url' name='url' autofocus='on' placeholder='http://www.sfu.ca' required='on' class='inputUrlBox'>
+						<input type='submit' value='Research' class='inputUrlSubmit'>		
+					</form>	
+				";
+				
+			} else {
+				
+				$url_searched = htmlspecialchars($_POST['url']);
+				echo"<h3>"; echo htmlspecialchars($url_searched); echo "</h3>"; 
+				$api = new Mozscape_API_Class('member-a2ba05c944','fe14b1bdc8442b00909424f59b98bf91');
+				$url_metrics = json_decode($api->urlMetrics($url_searched, 133714411517));
+				ob_start();				
+				var_dump($url_metrics);
+				$site_info = ob_get_clean();
+				$date = new \DateTime;				
+				//store() in DB***************************************************************************	
+				$research = new Research;
+				$research->user_id    = $id;
+				$research->site_url    = $url_searched;
+				$research->site_info = $site_info;
+				$research->created_at = $date;
+				//$research->save();
+				//store() in DB***************************************************************************	
+				echo "<br>";
+				echo "
+				<table>
+    <tr>
+      <th>"; 
+        echo $api->responseFields('ut', 'name');
+        echo "<p>"; echo $api->responseFields('ut', 'description'); echo "</p>
+      </th>
+      <td>"; echo $url_metrics->ut; echo "</td>
+    </tr>
+    <tr>
+      <th>";
+        echo $api->responseFields('uu', 'name'); echo "
+        <p>"; echo $api->responseFields('uu', 'description'); echo "</p>
+      </th>
+      <td>"; echo $url_metrics->uu; echo "</td>
+    </tr>
+    <tr>
+      <th>
+        "; echo $api->responseFields('ueid', 'name'); echo "
+        <p>"; echo $api->responseFields('ueid', 'description'); echo "</p>
+      </th>
+      <td>"; echo number_format($url_metrics->ueid); echo "</td>
+    </tr>
+    
+    <tr>
+      <th>";
+         echo $api->responseFields('uid', 'name'); echo "
+        <p>"; echo $api->responseFields('uid', 'description'); echo "</p>
+      </th>
+      <td>"; echo number_format($url_metrics->uid); echo "</td>
+    </tr>
+    <tr>
+      <th>
+        "; echo $api->responseFields('umrp', 'name'); echo "
+        <p>"; echo $api->responseFields('umrp', 'description'); echo "</p>
+      </th>
+      <td>"; echo number_format($url_metrics->umrp); echo "</td>
+    </tr>
+    <tr>
+      <th>
+        "; echo $api->responseFields('fmrp', 'name'); echo "
+        <p>"; echo $api->responseFields('fmrp', 'description'); echo "</p>
+      </th>
+      <td>"; echo number_format($url_metrics->fmrp); echo "</td>
+    </tr>
+    <tr>
+      <th>
+        "; echo $api->responseFields('us', 'name'); echo "
+        <p>"; echo $api->responseFields('us', 'description'); echo "</p>
+      </th>
+      <td>"; echo $url_metrics->us; echo "</td>
+    </tr>
+    <tr>
+      <th>
+        "; echo $api->responseFields('upa', 'name'); echo "
+        <p>"; echo $api->responseFields('upa', 'description'); echo "</p>
+      </th>
+      <td>"; echo number_format($url_metrics->upa); echo "</td>
+    </tr> 
+    <tr>
+      <th>
+        "; echo $api->responseFields('pda', 'name'); echo "
+        <p>"; echo $api->responseFields('pda', 'description'); echo "</p>
+      </th>
+      <td>"; echo number_format($url_metrics->pda); echo "</td>
+    </tr>        
+</table> 
+
+<footer id='mozFooter'>
+	<br><br>
+	<p>*Please note that at this time these results can not be retrieved through 'Past Queries'.
+	However, the URL of your research will still be displayed on that page. </p>
+
+</footer>
+
+";
+			}
+		?>
+</div>	
+</div>
+
+<!--    *** Bootstrap Side Navbar *** -->
+
+<!-- <div class="row">
+  <div class="col-sm-3">
+    <div class="sidebar-nav">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="visible-xs navbar-brand">Sidebar menu</span>
+        </div>
+        <div class="navbar-collapse collapse sidebar-navbar-collapse" >
+          <ul class="nav navbar-nav" id="researchNavbar">
+            <li>{{ HTML::link('clients/research', 'Research') }}</li>
+            <li>{{ HTML::link('clients/trends', 'Trends') }}</li>
+            <li>{{ HTML::link('clients/historical-queries', 'Past Queries') }}</li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      <!--</div>
+    </div>
+  </div>
+  <div class="col-sm-9"> -->
+ 
+  
+    <!-- Main content of the page-->
+<!--  <div class="container-fluid" >
+	<div class="researchForm"> 
+		<form name="siteURL" action="HTML::link('clients/research/summarypopop')" method="post">
+			<input type="url" name="url" autofocus="on" placeholder="http://www.example.com" required="on" class="inputUrlBox">
+			<input type="submit" value="Research" class="inputUrlSubmit">		
+		</form>		
+	</div>	
+</div>  -->
+
+ 
+    <!-- End of Main Content -->
+    
+  <!-- </div>
+</div>  -->
+
+<!-- *** END OF   Bootstrap Side Navbar *** -->
+
+
+
+
+
+
+<!--      ********************************* End of Research Centre Content********************************************         -->
+
+
+<!-- Testimonials -->
+<section class="site-content site-section" style="display:none;">
+    <div class="container">
+        <!-- Testimonials Carousel -->
+        <div id="testimonials-carousel" class="carousel slide carousel-html" data-ride="carousel" data-interval="4000">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#testimonials-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#testimonials-carousel" data-slide-to="1"></li>
+                <li data-target="#testimonials-carousel" data-slide-to="2"></li>
+                <li data-target="#testimonials-carousel" data-slide-to="3"></li>
+            </ol>
+            <!-- END Indicators -->
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner text-center">
+                <div class="active item">
+                    <p>
+                        <img src="{{ URL::asset('img/') }}" alt="Avatar" class="img-circle">
+                    </p>
+                    <blockquote class="no-symbol">
+                        <p>I gained 100% traffic!</p>
+                        <footer><strong>Farzin Fakhraei</strong>, google.com</footer>
+                    </blockquote>
+                </div>
+                <div class="item">
+                    <p>
+                        <img src="{{ URL::asset('img/') }}" alt="Avatar" class="img-circle">
+                    </p>
+                    <blockquote class="no-symbol">
+                        <p>Never has my website been so active!</p>
+                        <footer><strong>John Zwiep</strong>, yahoo.com</footer>
+                    </blockquote>
+                </div>
+                <div class="item">
+                    <p>
+                        <img src="img" alt="Avatar" class="img-circle">
+                    </p>
+                    <blockquote class="no-symbol">
+                        <p>I boosted my sales up 1000%</p>
+                        <footer><strong>Erik Ross</strong>, example.com</footer>
+                    </blockquote>
+                </div>
+                <div class="item">
+                    <p>
+                        <img src="img" alt="Avatar" class="img-circle">
+                    </p>
+                    <blockquote class="no-symbol">
+                        <p>It saved my life!</p>
+                        <footer><strong>Duy Vo</strong>, sfu.ca</footer>
+                    </blockquote>
+                </div>
+            </div>
+            <!-- END Wrapper for slides -->
+        </div>
+        <!-- END Testimonials Carousel -->
+    </div>
+</section>
+<!-- END Testimonials -->
+
+
+
+@stop
+
+@section('postscripts')
+<script src="{{ URL::asset('js/pages/index-front.js') }}"></script>
+<script>$(function() {
+Index.init();
+});</script>
+
+@stop

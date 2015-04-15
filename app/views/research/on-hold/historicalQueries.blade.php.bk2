@@ -1,0 +1,191 @@
+@extends('clients')
+@section('content') 
+
+<!-- Intro -->
+<!-- <section class="site-section site-section-light site-section-top themed-background-flatie">
+   
+</section> -->
+<!-- END Intro -->
+ <h2>Past Searches</h2>
+
+<div class="container-fluid" >
+	<div class="researchForm">
+		<?php
+		//echo $id;
+		
+		
+		
+		echo "<br>";
+		$urls = DB::table('users_site')->where('user_id', $id)->select('site_url')->distinct()->get();
+			
+		
+		
+	/*echo "end laravel <br>";	
+	echo "<table>";
+		foreach ($urls as $url)     //********************style this table later on and implement the 'research button
+		{
+			//echo Form::open(array('$url' => 'site_url'));
+			
+			//echo "<br>";
+			//echo "end laravel <br>";
+			//echo ($url->site_url);
+		    echo "
+				
+    <tr>
+      <th>"; 
+        echo ($url->site_url);
+        echo "
+      </th>
+      <td>"; echo Form::submit('Research'); echo"</td>
+    </tr>
+    ";
+        		    
+		}
+		echo "</table>";*/
+	
+		?> 
+
+	
+	
+		<!-- "location.href='{{ $url->site_url }}'">Research</button></td>	 -->
+		<table id="pastSearches">
+		@foreach ($urls as $url)
+		<tr>
+			<th>
+				{{ $url->site_url }}
+			</th>	
+			<td><button onClick= "location.href='{{ $url->site_url }}'">Research</button></td>
+		</tr>
+    	
+	@endforeach
+	</table>
+  </div>
+</div>
+
+
+<!--    *** Bootstrap Side Navbar *** -->
+
+<!-- <div class="row">
+  <div class="col-sm-3">
+    <div class="sidebar-nav">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="visible-xs navbar-brand">Sidebar menu</span>
+        </div>
+        <div class="navbar-collapse collapse sidebar-navbar-collapse" >
+          <ul class="nav navbar-nav" id="researchNavbar">
+            <li>{{ HTML::link('clients/research', 'Research') }}</li>
+            <li>{{ HTML::link('clients/trends', 'Trends') }}</li>
+            <li>{{ HTML::link('clients/historical-queries', 'Past Queries') }}</li>
+          </ul>
+        </div> --><!--/.nav-collapse -->
+      <!-- </div>
+    </div>
+  </div> -->
+<!--   <div class="col-sm-9"> -->
+ 
+  
+    <!-- Main content of the page-->
+<!--  <div class="container-fluid" >
+	<div class="researchForm"> 
+		<form name="siteURL" action="HTML::link('clients/research/summarypopop')" method="post">
+			<input type="url" name="url" autofocus="on" placeholder="http://www.example.com" required="on" class="inputUrlBox">
+			<input type="submit" value="Research" class="inputUrlSubmit">		
+		</form>		
+	</div>	
+</div>  -->
+
+ 
+    <!-- End of Main Content -->
+    
+<!--   </div>
+</div>  -->
+
+
+<!-- *** END OF   Bootstrap Side Navbar *** -->
+
+
+
+
+
+
+<!--      ********************************* End of Research Centre Content********************************************         -->
+
+
+<!-- Testimonials -->
+<section class="site-content site-section" style="display:none;">
+    <div class="container">
+        <!-- Testimonials Carousel -->
+        <div id="testimonials-carousel" class="carousel slide carousel-html" data-ride="carousel" data-interval="4000">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#testimonials-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#testimonials-carousel" data-slide-to="1"></li>
+                <li data-target="#testimonials-carousel" data-slide-to="2"></li>
+                <li data-target="#testimonials-carousel" data-slide-to="3"></li>
+            </ol>
+            <!-- END Indicators -->
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner text-center">
+                <div class="active item">
+                    <p>
+                        <img src="{{ URL::asset('img/') }}" alt="Avatar" class="img-circle">
+                    </p>
+                    <blockquote class="no-symbol">
+                        <p>I gained 100% traffic!</p>
+                        <footer><strong>Farzin Fakhraei</strong>, google.com</footer>
+                    </blockquote>
+                </div>
+                <div class="item">
+                    <p>
+                        <img src="{{ URL::asset('img/') }}" alt="Avatar" class="img-circle">
+                    </p>
+                    <blockquote class="no-symbol">
+                        <p>Never has my website been so active!</p>
+                        <footer><strong>John Zwiep</strong>, yahoo.com</footer>
+                    </blockquote>
+                </div>
+                <div class="item">
+                    <p>
+                        <img src="img" alt="Avatar" class="img-circle">
+                    </p>
+                    <blockquote class="no-symbol">
+                        <p>I boosted my sales up 1000%</p>
+                        <footer><strong>Erik Ross</strong>, example.com</footer>
+                    </blockquote>
+                </div>
+                <div class="item">
+                    <p>
+                        <img src="img" alt="Avatar" class="img-circle">
+                    </p>
+                    <blockquote class="no-symbol">
+                        <p>It saved my life!</p>
+                        <footer><strong>Duy Vo</strong>, sfu.ca</footer>
+                    </blockquote>
+                </div>
+            </div>
+            <!-- END Wrapper for slides -->
+        </div>
+        <!-- END Testimonials Carousel -->
+    </div>
+</section>
+<!-- END Testimonials -->
+
+
+
+@stop
+
+@section('postscripts')
+<script src="{{ URL::asset('js/pages/index-front.js') }}"></script>
+<script>$(function() {
+Index.init();
+});</script>
+
+@stop

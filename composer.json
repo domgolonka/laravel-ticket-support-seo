@@ -1,0 +1,50 @@
+{
+	"name": "laravel/laravel",
+	"description": "The Laravel Framework.",
+	"keywords": ["framework", "laravel"],
+	"license": "MIT",
+	"require": {
+		"laravel/framework": "4.2.*",
+		"way/generators": "2.*",
+                "codeguy/upload": "*",
+		"knplabs/gaufrette": "0.1.*",
+                "mashape/unirest-php" : "dev-master",
+		"xethron/migrations-generator": "dev-master",
+                "orangehill/iseed": "dev-master"
+	},
+	"autoload": {
+		"classmap": [
+			"app/commands",
+			"app/controllers",
+			"app/models",
+                        "app/library",
+                        "app/library/Helper",
+			"app/database/migrations",
+			"app/database/seeds",
+			"app/tests/TestCase.php",
+			"app/library/research"
+		]
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-update-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-create-project-cmd": [
+			"php artisan key:generate"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	
+	"require-dev":{
+        "xethron/migrations-generator": "dev-master"
+    },
+	
+	"minimum-stability": "stable"
+}
